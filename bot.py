@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from cmd import cmd, cmd_init
+from token import tokenKey
 
 id = 683190065488199690
 #client = commands.Bot(command_prefix="#")
@@ -42,5 +43,5 @@ async def on_message(message):
             await message.channel.send("Enter a valid command")
             
 
-client.run('NjgzMTc2MDUxNzczNDA3Mjgy.XlpqXQ.Mx0McbZYNKV4y5CHD_Jh2eUGySs')
+client.run(tokenKey)
    
