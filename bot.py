@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import gizoogle
 from cmd import cmd, cmd_init
 
 id = 683190065488199690
@@ -43,5 +42,5 @@ async def on_message(message):
             await message.channel.send("Enter a valid command")
             
 
-client.run('NjgzMTc2MDUxNzczNDA3Mjgy.XloD_A.dCQCHBKGfDhNkdKW3mcacTgXeok')
+client.run('NjgzMTc2MDUxNzczNDA3Mjgy.XlpqXQ.Mx0McbZYNKV4y5CHD_Jh2eUGySs')
    
