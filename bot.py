@@ -1,44 +1,47 @@
 import discord
 from discord.ext import commands
+import gizoogle
+from cmd import cmd, cmd_init
 
-
-client = commands.Bot(command_prefix="|")
-
+id = 683190065488199690
+#client = commands.Bot(command_prefix="#")
+client = discord.Client()
+bot_id = "<@683176051773407282>"
 
 @client.event
 async def on_ready():
-    print("Ayy Ayy madrix")
+    print('Logged in as')
+    print(client.user.name)
+    print(client.user.id)
+    print('------')
 
 
 @client.event
 async def on_member_join(member):
-    print(f'{member} has joined')
+    for channel in member.server.channels:
+        if str(channel) == "general":
+            await client.send_message(f"""Welcome to TestServer69 {member.mention} """)
+
 
 
 @client.event
 async def on_member_remove(member):
     print(f'bye bye {member}')
 
-@client.command()
-async def ping(ctx):
-    await ctx.send("chup bsdk")
-
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
-    y = message.content 
-    if y[0] == "/":
-        y = message.content
-        z = y[1:]
-        print(z)
-        try:
-            z = float(z)
-            z = z + 1
-            await message.channel.send(z)
-        except:
-            response = "Pls enter valid no."
-            await message.channel.send(response)
+    id = client.get_guild(683190065488199690)
+    channels = ['command']
+    msg = str(message.content)
+    print(msg)
+    
+    if msg[0] == cmd_init:
+        msg = msg[1:]
+        if msg in cmd(message).keys():
+            await message.channel.send(cmd(message)[msg])
+        else:
+            await message.channel.send("Enter a valid command")
+            
 
-
-client.run('NjgzMTc2MDUxNzczNDA3Mjgy.XlnvYA.XHguSi_ALEqjdKVTPnU5rQgv1I8')
+client.run('NjgzMTc2MDUxNzczNDA3Mjgy.XloD_A.dCQCHBKGfDhNkdKW3mcacTgXeok')
+   
