@@ -1,4 +1,9 @@
 from datetime import datetime
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost:27017')
+
+
 
 cmd_init = "."
 
@@ -16,10 +21,28 @@ commands-
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
 
-def cmd(x):
+def cmd(x, a):
+
+    def save_data(ms):
+        db = client['bot_data']
+        posts = db.posts
+        posts.insert_one(ms)
+        return "saved!😁" 
+        
+    post_data = {
+        'message' : a 
+    }
     cmd = {
         'help' : info,
         'hello' : f"Hi {x.author}!",
         'time' : current_time,
+        'create' : save_data(post_data)
     }
     return cmd
+
+
+
+    def todo():
+        td_cmd = {
+            'create'
+        } 

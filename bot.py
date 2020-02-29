@@ -1,12 +1,18 @@
 import discord
 from discord.ext import commands
 from cmd import cmd, cmd_init
-from token import tokenKey
+from tokenki import tokenKey
+from pymongo import MongoClient
+
 
 id = 683190065488199690
 #client = commands.Bot(command_prefix="#")
 client = discord.Client()
 bot_id = "<@683176051773407282>"
+
+def listToString(s):
+    str1 = " "    
+    return str1.join(s)
 
 @client.event
 async def on_ready():
@@ -36,9 +42,10 @@ async def on_message(message):
     print(msg)
     
     if msg[0] == cmd_init:
-        msg = msg[1:]
-        if msg in cmd(message).keys():
-            await message.channel.send(cmd(message)[msg])
+        lst = msg.split()
+        a = listToString(lst[1:])
+        if lst[0][1:] in cmd(message, a).keys():
+            await message.channel.send(cmd(message, a)[lst[0][1:]])
         else:
             await message.channel.send("Enter a valid command")
             
