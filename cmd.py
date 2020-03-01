@@ -1,5 +1,5 @@
-from datetime import datetime
 from pymongo import MongoClient
+from db import save_data
 
 client = MongoClient('mongodb://localhost:27017')
 
@@ -16,33 +16,26 @@ commands-
 .avengers : See avengers movie
 .time : current time
 """
+client = MongoClient('mongodb://localhost:27017')
+db = client['bot_data']
+posts = db.posts
 
 
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
 
-def cmd(x, a):
-
-    def save_data(ms):
-        db = client['bot_data']
-        posts = db.posts
-        posts.insert_one(ms)
-        return "saved!😁" 
-        
-    post_data = {
-        'message' : a 
-    }
-    cmd = {
+cmd = {
+    "msg" : {
         'help' : info,
-        'hello' : f"Hi {x.author}!",
-        'time' : current_time,
-        'create' : save_data(post_data)
+        'hello' : message_cmd
+    },
+    "db" : {
+        'create' : save_data
     }
-    return cmd
+}
 
 
+def message_cmd(x):
+    return f"Hi {x.author}"
 
-    def todo():
-        td_cmd = {
-            'create'
-        } 
+
+def save_data(ms):
+    posts.insert_one(ms)
