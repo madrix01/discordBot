@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-from cmd import cmd, cmd_init
-
+from cmd import cmdList, cmd_init
 from tokenki import tokenKey
 from pymongo import MongoClient
 
@@ -25,10 +24,10 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    for channel in member.server.channels:
-        if str(channel) == "general":
-            await client.send_message(f"""Welcome to TestServer69 {member.mention} """)
-
+    await member.create_dm()
+    await member.dm_channel.send(
+        f'Hi {member.name}, welcome to my Discord server! Type ".help" to see all the commands'
+    )
 
 
 @client.event
@@ -44,23 +43,27 @@ async def on_message(message):
     
     if msg[0] == cmd_init:
         lst = msg.split()
-        print('1', lst)
-        a = listToString(lst[1:])
-        post_data = {
-                'message' : a 
-            }
-        print('2', a)
-
-        if lst[0][1:] in cmd["msg"].keys():
-
-            await message.channel.send(message_cmd(message)[lst[0][1:]])
-        
-        if lst[0][1:] in cmd['db'].keys():
-            db_cmd(post_data)
-            await message.channel.send("saved!😁")
+        inCmdBody = listToString(lst[1:])
+        print(inCmdBody)
+        inCmd = lst[0][1:]
+        if inCmd in cmdList['msg'].keys():
+            if inCmd == "hello":
+                await message.channel.send(cmdList['msg'][inCmd](message))
+            else:
+                await message.channel.send(cmdList["msg"][inCmd])
+        elif inCmd in cmdList['db'].keys():
+            if inCmd == "create":
+                if inCmdBody != "":
+                    post = {
+                        'message' : inCmdBody
+                    }
+                    cmdList['db']["create"](post)
+                    await message.channel.send("Saved! ;)")
+                else:
+                    await message.channel.send("Can't save blank message!")
         else:
-            await message.channel.send("Enter a valid command")
-            
+            await message.channel.send("Pls enter a valid command! Type '.help' for all the commnads")
+
 
 client.run(tokenKey)
    

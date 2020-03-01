@@ -13,16 +13,16 @@ Type '{cmd_init}' in front of command to activate.
 commands-
 .help : All the info
 .hello : Greets
-.avengers : See avengers movie
-.time : current time
+.create <message> : Save message to the datatbase
 """
-client = MongoClient('mongodb://localhost:27017')
-db = client['bot_data']
-posts = db.posts
+
+
+def message_cmd(x):
+    return f"Hi {x.author}"
 
 
 
-cmd = {
+cmdList = {
     "msg" : {
         'help' : info,
         'hello' : message_cmd
@@ -33,9 +33,6 @@ cmd = {
 }
 
 
-def message_cmd(x):
-    return f"Hi {x.author}"
 
 
-def save_data(ms):
-    posts.insert_one(ms)
+
