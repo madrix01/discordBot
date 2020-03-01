@@ -1,3 +1,3 @@
 # discordBot
 
-Join the server here https://discord.gg/7gNBzW
+Join the server here https://discord.gg/xwVnKs9
