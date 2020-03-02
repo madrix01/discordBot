@@ -2,8 +2,6 @@ import discord
 from discord.ext import commands
 from cmd import info
 from tokenki import tokenKey
-from pymongo import MongoClient
-import asyncio
 
 
 id = 683190065488199690
