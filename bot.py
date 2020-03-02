@@ -1,8 +1,13 @@
 import discord
 from discord.ext import commands
 from cmd import info
-from tokenki import tokenKey
 
+def read_token():
+    with open("token.txt", "r") as f:
+        lines = f.readlines()
+        return lines[0].strip
+
+tokenKey = read_token()
 
 id = 683190065488199690
 client = commands.Bot(command_prefix=".")
