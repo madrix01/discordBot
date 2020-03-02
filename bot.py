@@ -10,7 +10,7 @@ def read_token():
 tokenKey = read_token()
 
 id = 683190065488199690
-client = commands.Bot(command_prefix=".")
+client = commands.Bot(command_prefix="!")
 client.remove_command("help")
 #client = discord.Client()
 bot_id = "<@683176051773407282>"
