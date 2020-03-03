@@ -60,8 +60,8 @@ async def loop(ctx):
 
 
 @tasks.loop(seconds=10)
-async def loop_message(ctx):
-    await ctx.send("hii")
+async def loop_message():
+    await client.channel.send("hii")
 
 
 
