@@ -1,6 +1,7 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from cmd import info
+
 
 def read_token():
     with open("token.txt", "r") as f:
@@ -22,10 +23,8 @@ def listToString(s):
 
 @client.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+    await client.change_presence(activity=discord.Game("with feelings"))
+    print("Ayy Ayy captain")
 
 
 
@@ -55,7 +54,14 @@ async def help(ctx):
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
+@client.command()
+async def loop(ctx):
+    loop_message.start()
 
+
+@tasks.loop(seconds=10)
+async def loop_message(ctx):
+    await ctx.send_message("hii")
 
 
 
