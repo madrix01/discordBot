@@ -50,7 +50,7 @@ async def on_command_error(ctx, error):
 
 @client.command()
 async def hello(ctx):
-    await ctx.send(f"Hii {ctx.message.author}")
+    await ctx.send(f"Hii {ctx.message.author} {ctx.message.author.role}")
 
 
 @client.command()
@@ -61,6 +61,8 @@ async def help(ctx):
 @client.command()
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
+
+
 
 
 
