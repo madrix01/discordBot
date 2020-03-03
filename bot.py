@@ -61,7 +61,7 @@ async def loop(ctx):
 
 @tasks.loop(seconds=10)
 async def loop_message(ctx):
-    await ctx.send_message("hii")
+    await ctx.send("hii")
 
 
 
