@@ -39,6 +39,14 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f'bye bye {member}')
 
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Pls give proper commands")
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("No Command found, Type '!help' to get all commands")
+
+
 
 @client.command()
 async def hello(ctx):
