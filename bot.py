@@ -56,12 +56,12 @@ async def clear(ctx, amount=5):
 
 @client.command()
 async def loop(ctx):
-    loop_message.start()
+    loop_message.start(ctx)
 
 
 @tasks.loop(seconds=10)
-async def loop_message():
-    await client.channel.send("hii")
+async def loop_message(ctx):
+    await ctx.send("hii")
 
 
 
