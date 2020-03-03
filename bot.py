@@ -39,18 +39,18 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f'bye bye {member}')
 
-@client.event
+"""@client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Pls give proper commands")
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send("No Command found, Type '!help' to get all commands")
+        await ctx.send("No Command found, Type '!help' to get all commands")"""
 
 
 
 @client.command()
 async def hello(ctx):
-    await ctx.send(f"Hii {ctx.message.author} {ctx.message.author.role}")
+    await ctx.send(f"Hii {ctx.message.author} ")
 
 
 @client.command()
@@ -62,8 +62,14 @@ async def help(ctx):
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
-
-
+@client.command(pass_context=True)
+async def listroles(ctx):
+    x = ctx.message.author.roles
+    rls = ""
+    x = x[1:]
+    for i in range(len(x)):
+        rls = rls + " " + str(x[i])
+    await ctx.send(rls)
 
 
 
