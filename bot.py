@@ -54,14 +54,9 @@ async def help(ctx):
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
-@client.command()
-async def loop(ctx):
-    loop_message.start(ctx)
 
 
-@tasks.loop(seconds=10)
-async def loop_message(ctx):
-    await ctx.send("hii")
+
 
 
 
