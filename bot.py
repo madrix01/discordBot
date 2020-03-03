@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands, tasks
-from cmd import info
+from cmd import info, check_role
+import random
+
+
 
 
 def read_token():
@@ -23,7 +26,7 @@ def listToString(s):
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Game("with feelings"))
+    await client.change_presence(activity=discord.Game("with Madrix's Code"))
     print("Ayy Ayy captain")
 
 
@@ -59,21 +62,29 @@ async def help(ctx):
 
 
 @client.command()
+@commands.has_role('Developer')
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
 @client.command(pass_context=True)
-async def listroles(ctx):
+async def roles(ctx):
     x = ctx.message.author.roles
     rls = ""
     x = x[1:]
     for i in range(len(x)):
         rls = rls + " " + str(x[i])
+
     await ctx.send(rls)
 
-
-
-
+@client.command()
+async def roll(ctx, value):
+    x = random.choice([1, 2, 3, 4, 5, 6])
+    if value == str(x):
+        em = discord.Embed(title="You Won" , description=f"Your No.> {value}\n Secret No.> {x}", colour=0x00FF00)
+        await ctx.send(embed=em)
+    else:
+        em = discord.Embed(title="You Lose" , description=f"""Your No.> {value}\n Secret No.> {x}""", colour=0xFF0000)
+        await ctx.send(embed=em)
 
 
 client.run(tokenKey)
