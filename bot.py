@@ -51,6 +51,10 @@ async def help(ctx):
     await ctx.send(f"Hii {ctx.message.author} {info}")
 
 
+@client.command()
+async def clear(ctx, amount=5):
+    await ctx.channel.purge(limit=amount)
+
 
 
 
