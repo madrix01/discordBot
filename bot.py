@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands, tasks
 from cmd import info, check_role
 import random
-
+from gifs import search_gif
 
 
 
@@ -58,7 +58,8 @@ async def hello(ctx):
 
 @client.command()
 async def help(ctx):
-    await ctx.send(f"Hii {ctx.message.author} {info}")
+    em = discord.Embed(title="You Won" , description=info, colour=0xFF8300)
+    await ctx.send(embed=em)
 
 
 @client.command()
@@ -80,12 +81,17 @@ async def roles(ctx):
 async def roll(ctx, value):
     x = random.choice([1, 2, 3, 4, 5, 6])
     if value == str(x):
-        em = discord.Embed(title="You Won" , description=f"Your No.> {value}\n Secret No.> {x}", colour=0x00FF00)
+        em = discord.Embed(title="You Won" , description=f"Your No.> {value}\nSecret No.> {x}", colour=0x00FF00)
         await ctx.send(embed=em)
     else:
-        em = discord.Embed(title="You Lose" , description=f"""Your No.> {value}\n Secret No.> {x}""", colour=0xFF0000)
+        em = discord.Embed(title="You Lose" , description=f"""Your No.> {value}\nSecret No.> {x}""", colour=0xFF0000)
         await ctx.send(embed=em)
+    
+@client.command()
+async def gif(ctx, query='what'):
+    gif = await search_gif(query)
+    await ctx.send('Gif URL : ' + gif)
+
 
 
 client.run(tokenKey)
-   
