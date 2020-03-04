@@ -6,12 +6,12 @@ from gifs import search_gif
 
 
 
-def read_token():
+def read_token(c):
     with open("token.txt", "r") as f:
         lines = f.readlines()
-        return lines[0].strip()
+        return lines[c].strip()
 
-tokenKey = read_token()
+tokenKey = read_token(0)
 
 id = 683190065488199690
 client = commands.Bot(command_prefix="!")

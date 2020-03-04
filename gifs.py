@@ -1,13 +1,12 @@
 import giphy_client
 from giphy_client.rest import ApiException
 from pprint import pprint
-from tokenki import giphyTokenKey
 import random
-
+from bot import read_token
 #api instance
 
 api_instance = giphy_client.DefaultApi()
-
+giphyTokenKey = read_token(1)
 
 async def search_gif(query):
     try:
