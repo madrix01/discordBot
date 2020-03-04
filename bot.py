@@ -3,13 +3,9 @@ from discord.ext import commands, tasks
 from cmd import info, check_role
 import random
 from gifs import search_gif
+from cmd import read_token
 
 
-
-def read_token(c):
-    with open("token.txt", "r") as f:
-        lines = f.readlines()
-        return lines[c].strip()
 
 tokenKey = read_token(0)
 

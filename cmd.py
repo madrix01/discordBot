@@ -15,3 +15,9 @@ def check_role(arr):
             return True
         else:
             return False
+
+
+def read_token(c):
+    with open("token.txt", "r") as f:
+        lines = f.readlines()
+        return lines[c].strip()
