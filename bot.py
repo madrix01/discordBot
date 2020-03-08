@@ -3,11 +3,11 @@ from discord.ext import commands, tasks
 from cmd import info, check_role
 import random
 from gifs import search_gif
-from cmd import read_token
+from cmd import *
 import os
 
 
-tokenKey = read_token(0)
+tokenKey = read_lines(0, "token.txt")
 
 id = 683190065488199690
 client = commands.Bot(command_prefix="!")
@@ -46,6 +46,16 @@ async def on_command_error(ctx, error):
         await ctx.send("No Command found, Type '!help' to get all commands")"""
 
 
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f"cogs.{extension}")
+
+
+@client.command()
+async def reload(ctx, extension = "osCmd"):
+    client.unload_extension(f"cogs.{extension}")
+    client.load_extension(f"cogs.{extension}")
+    print("reload")
 
 @client.command()
 async def hello(ctx):
@@ -70,18 +80,8 @@ async def roles(ctx):
     x = x[1:]
     for i in range(len(x)):
         rls = rls + " " + str(x[i])
-
     await ctx.send(rls)
 
-@client.command()
-async def roll(ctx, value):
-    x = random.choice([1, 2, 3, 4, 5, 6])
-    if value == str(x):
-        em = discord.Embed(title="You Won" , description=f"Your No.> {value}\nSecret No.> {x}", colour=0x00FF00)
-        await ctx.send(embed=em)
-    else:
-        em = discord.Embed(title="You Lose" , description=f"""Your No.> {value}\nSecret No.> {x}""", colour=0xFF0000)
-        await ctx.send(embed=em)
     
 @client.command()
 async def gif(ctx, query='what'):
@@ -89,9 +89,10 @@ async def gif(ctx, query='what'):
     await ctx.send('Gif URL : ' + gif)
 
 
-@client.command()
-async def explorer(ctx):
-    os.system('explorer')
-    
+
+for filename in os.listdir("./cogs"):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(tokenKey)
+     
