@@ -5,7 +5,7 @@ Commands-
     !hello : Greets
     !roll <No.> : Guessing game 
     !roles : view all the roles 
-    !gif <query> : gif in chat 
+    !gif <query> : gif in chat
 """
 
 

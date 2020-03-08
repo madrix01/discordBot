@@ -4,7 +4,7 @@ from cmd import info, check_role
 import random
 from gifs import search_gif
 from cmd import read_token
-
+import os
 
 
 tokenKey = read_token(0)
@@ -89,5 +89,9 @@ async def gif(ctx, query='what'):
     await ctx.send('Gif URL : ' + gif)
 
 
+@client.command()
+async def explorer(ctx):
+    os.system('explorer')
+    
 
 client.run(tokenKey)
