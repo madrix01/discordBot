@@ -47,7 +47,7 @@ class osCmd(commands.Cog):
     async def git(self, ctx, pthNo, commit_name):
         pthNo = int(pthNo)
         pth = read_lines(pthNo, pathFile)
-        os.system(f'start /B start cmd.exe @cmd /k  cd {pth} && git add . && git commit -m "{commit_name} && git push"')
+        os.system(f'start /B start cmd.exe @cmd /k  cd {pth} && git add . && git commit -m "{commit_name}" && git push')
 
 def setup(client):
     client.add_cog(osCmd(client))
