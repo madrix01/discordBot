@@ -1,3 +1,7 @@
+import git
+from git import Repo
+
+
 info = f"""
 Hello I am Hibana, I am a bot created by Madrix.
 Commands-
@@ -37,3 +41,14 @@ def write_path(c, file):
       if len(data) > 0 :
           file_object.write("\n")
       file_object.write(c)
+
+
+def git_push(pth, commitMessage):  #path #commit message
+    repo = Repo(pth)
+    repo.git.add(update=True)
+    print("added")
+    repo.index.commit(commitMessage)
+    print("commited")
+    origin = repo.remote(name='origin')
+    origin.push()
+    print("pushed")

@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import os
-from cmd import num_lines, read_lines, write_path
+from cmd import num_lines, read_lines, write_path, git_push
 
 
 pathFile = "folderpath.txt"
@@ -44,10 +44,13 @@ class osCmd(commands.Cog):
         await ctx.send(embed=em)
     
     @commands.command()
-    async def git(self, ctx, pthNo, commit_name):
+    async def git(self, ctx, pthNo, commitMessage):
         pthNo = int(pthNo)
-        pth = read_lines(pthNo, pathFile)
-        os.system(f'start /B start cmd.exe @cmd /k  cd {pth} && git add . && git commit -m "{commit_name}" && git push')
+        pth = str(read_lines(pthNo, pathFile))
+        commitMessage = str(commitMessage)
+        git_push(pth, commitMessage)
+        
+
 
 def setup(client):
     client.add_cog(osCmd(client))

@@ -1,1 +1,3 @@
-C:\Madrix\Dev\DiscordBot
+C:/Madrix/Dev/trygit
+
+C:/Madrix/Dev/DiscordBot
