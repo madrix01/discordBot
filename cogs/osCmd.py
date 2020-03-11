@@ -43,13 +43,17 @@ class osCmd(commands.Cog):
         em = discord.Embed(title="Git paths" , description=gps, colour=0xFF8300)
         await ctx.send(embed=em)
     
+    
     @commands.command()
     async def git(self, ctx, pthNo, commitMessage):
         pthNo = int(pthNo)
-        pth = str(read_lines(pthNo, pathFile))
-        commitMessage = str(commitMessage)
-        git_push(pth, commitMessage)
-        
+        if pthNo > num_lines(pathFile):
+            await ctx.channel.send("Enter proper path no.") 
+        else:
+            pth = str(read_lines(pthNo, pathFile))
+            commitMessage = str(commitMessage)
+            git_push(pth, commitMessage)
+            await ctx.channel.send(f"Commited {commitMessage} to master branch ")
 
 
 def setup(client):

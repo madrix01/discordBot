@@ -10,7 +10,7 @@ import os
 tokenKey = read_lines(0, "token.txt")
 
 id = 683190065488199690
-client = commands.Bot(command_prefix="!")
+client = commands.Bot(command_prefix=">")
 client.remove_command("help")
 #client = discord.Client()
 bot_id = "<@683176051773407282>"
@@ -52,7 +52,7 @@ async def load(ctx, extension):
 
 
 @client.command()
-async def reload(ctx, extension = "osCmd"):
+async def r(ctx, extension = "toDo"):
     client.unload_extension(f"cogs.{extension}")
     client.load_extension(f"cogs.{extension}")
     print("reload")
