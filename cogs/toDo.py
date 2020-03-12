@@ -8,10 +8,10 @@ class toDo(commands.Cog):
     def __init__(self, client):
         self.client = client
     
-    
-
 
     #commands
+
+    #add task and task status (1, 0)
     @commands.command()
     async def task(self, ctx, task, status):
         clientdb = MongoClient("mongodb://localhost:27017")
@@ -77,7 +77,17 @@ class toDo(commands.Cog):
                 newvalues = { "$set": { "status": "0" } }
                 posts.update_one(myquery, newvalues)
                 print("done")
-
+        
+    @commands.command()
+    async def rm(self, ctx, title):
+        clientdb = MongoClient("mongodb://localhost:27017")
+        db = clientdb['todo']
+        posts = db.posts
+        for i in posts.find():
+            if i["title"] == title:
+                myquery = {'title':title}
+                posts.delete_one(myquery)
+                print("Deleted")
             
 
 

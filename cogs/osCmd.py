@@ -12,17 +12,21 @@ class osCmd(commands.Cog):
         self.client = client
     
     #commands
-    @commands.command()
+
+    #opens a file in explorer in your computer
+    @commands.command(aliases=['e'])
     async def explorer(self ,ctx, folder = ""):
         os.startfile(f'C:/madrix/{folder}')
         await ctx.channel.purge(limit=1)
     
+    #open cmd <your cmd>
     @commands.command()
-    async def cmd(self, ctx, cmd=None):
+    async def cmd(self, ctx, cmd=""):
         os.system(f"start /B start cmd.exe @cmd /k {cmd}")
         await ctx.channel.purge(limit=1)
     
-    @commands.command(pass_context=True)
+    #add git initialised folder path
+    @commands.command(pass_context=True, aliases=["ap"])
     async def addpath(self, ctx, *path):
         path = list(path)
         y = " "
@@ -33,7 +37,8 @@ class osCmd(commands.Cog):
             write_path(path, pathFile)
             await ctx.channel.send(f"{path} Saved!")
 
-    @commands.command()
+    #view all the git path
+    @commands.command(aliases=['gp'])
     async def gitpath(self, ctx):
         gplist = []
         gps = ""
@@ -43,7 +48,7 @@ class osCmd(commands.Cog):
         em = discord.Embed(title="Git paths" , description=gps, colour=0xFF8300)
         await ctx.send(embed=em)
     
-    
+    #git push >git <path no from gp> <commit message>
     @commands.command()
     async def git(self, ctx, pthNo, commitMessage):
         pthNo = int(pthNo)
