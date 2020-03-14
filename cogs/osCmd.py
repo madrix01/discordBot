@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 from cmd import num_lines, read_lines, write_path, git_push
+import webbrowser
 
 
 pathFile = "folderpath.txt"
@@ -50,7 +51,10 @@ class osCmd(commands.Cog):
     
     #git push >git <path no from gp> <commit message>
     @commands.command()
-    async def git(self, ctx, pthNo, commitMessage):
+    async def git(self, ctx, pthNo, *commitMessage):
+        commitMessage = list(commitMessage)
+        y = " "
+        commitMessage = y.join(commitMessage) 
         pthNo = int(pthNo)
         if pthNo > num_lines(pathFile):
             await ctx.channel.send("Enter proper path no.") 
@@ -59,6 +63,23 @@ class osCmd(commands.Cog):
             commitMessage = str(commitMessage)
             git_push(pth, commitMessage)
             await ctx.channel.send(f"Commited {commitMessage} to master branch ")
+
+
+    #open browser and searches word
+    @commands.command(pass_context=True)
+    async def s(self, ctx, *search):
+        search = list(search)
+        y = " "
+        search = y.join(search)
+        url = "https://www.google.com.tr/search?q={}".format(search)
+        webbrowser.open_new_tab(url)
+        print("Directing to new page")
+    
+    #opens url in new windows 
+    @commands.command(pass_context=True)
+    async def url(self, ctx, url):
+        webbrowser.open_new_tab(url)
+        print("Directing to new page")
 
 
 def setup(client):
