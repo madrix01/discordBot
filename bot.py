@@ -5,6 +5,7 @@ import random
 from gifs import search_gif
 from cmd import *
 import os
+import asyncio
 
 
 tokenKey = read_lines(0, "token.txt")
@@ -19,6 +20,15 @@ def listToString(s):
     str1 = " "    
     return str1.join(s)
 
+
+async def my_background_task():
+    await client.wait_until_ready()
+    counter = 0
+    channel = discord.Object(id='683190065488199697')
+    while not client.is_closed:
+        counter += 1
+        await client.send_message(channel, counter)
+        await asyncio.sleep(20) 
 
 @client.event
 async def on_ready():
@@ -52,7 +62,7 @@ async def load(ctx, extension):
 
 
 @client.command()
-async def r(ctx, extension = "toDo"):
+async def r(ctx, extension = "gitpy"):
     client.unload_extension(f"cogs.{extension}")
     client.load_extension(f"cogs.{extension}")
     print("reload")
@@ -82,7 +92,7 @@ async def roles(ctx):
         rls = rls + " " + str(x[i])
     await ctx.send(rls)
 
-    
+
 @client.command()
 async def gif(ctx, query='what'):
     gif = await search_gif(query)
@@ -90,9 +100,17 @@ async def gif(ctx, query='what'):
 
 
 
+@client.command()
+async def d(ctx):
+    await ctx.send(f"{tdc} {tdic}")
+
+
+
 for filename in os.listdir("./cogs"):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
+
+client.loop.create_task(my_background_task())
 client.run(tokenKey)
      
