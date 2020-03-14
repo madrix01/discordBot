@@ -100,11 +100,6 @@ async def gif(ctx, query='what'):
 
 
 
-@client.command()
-async def d(ctx):
-    await ctx.send(f"{tdc} {tdic}")
-
-
 
 for filename in os.listdir("./cogs"):
     if filename.endswith('.py'):
