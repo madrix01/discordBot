@@ -22,7 +22,11 @@ class osCmd(commands.Cog):
     
     #open cmd <your cmd>
     @commands.command()
-    async def cmd(self, ctx, cmd=""):
+    async def cmd(self, ctx, *cmd):
+        cmd = list(cmd)
+        y = " "
+        cmd = y.join(cmd)
+        print(cmd)
         os.system(f"start /B start cmd.exe @cmd /k {cmd}")
         await ctx.channel.purge(limit=1)
     
